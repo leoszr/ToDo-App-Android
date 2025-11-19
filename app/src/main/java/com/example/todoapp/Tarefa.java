@@ -7,7 +7,7 @@ public class Tarefa {
 
     public Tarefa(String texto) {
         this.texto = texto;
-        this.concluida = false; // Por padrão, uma nova tarefa não está concluída
+        this.concluida = false;
     }
 
     public String getTexto() {

@@ -37,16 +37,17 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Exemplo de Tarefa" />
 
-        <Button
+        <ImageButton
             android:id="@+id/botaoRemover"
-            style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Remover"
-            android:textColor="@android:color/holo_red_dark"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Remover Tarefa"
+            android:src="@android:drawable/ic_menu_delete"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@android:color/holo_red_dark" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

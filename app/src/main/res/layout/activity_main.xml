@@ -48,4 +48,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextNovaTarefa" />
 
+    <TextView
+        android:id="@+id/textViewEstadoVazio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nenhuma tarefa ainda!\nAdicione uma para começar."
+        android:textSize="18sp"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

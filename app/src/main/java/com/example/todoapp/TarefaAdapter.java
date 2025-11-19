@@ -4,7 +4,7 @@ import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -15,15 +15,16 @@ import java.util.List;
 public class TarefaAdapter extends RecyclerView.Adapter<TarefaAdapter.TarefaViewHolder> {
 
     private List<Tarefa> listaDeTarefas;
+    private final Runnable verificarEstadoCallback;
 
-    public TarefaAdapter(List<Tarefa> listaDeTarefas) {
+    public TarefaAdapter(List<Tarefa> listaDeTarefas, Runnable verificarEstadoCallback) {
         this.listaDeTarefas = listaDeTarefas;
+        this.verificarEstadoCallback = verificarEstadoCallback;
     }
 
-    // ViewHolder atualizado para incluir a CheckBox
     public static class TarefaViewHolder extends RecyclerView.ViewHolder {
         public TextView textViewTarefa;
-        public Button botaoRemover;
+        public ImageButton botaoRemover;
         public CheckBox checkBoxConcluida;
 
         public TarefaViewHolder(@NonNull View itemView) {
@@ -47,35 +48,32 @@ public class TarefaAdapter extends RecyclerView.Adapter<TarefaAdapter.TarefaView
         holder.textViewTarefa.setText(tarefaAtual.getTexto());
         holder.checkBoxConcluida.setChecked(tarefaAtual.isConcluida());
 
-        // Aplica ou remove o efeito de riscado no texto
         aplicarEfeitoDeRiscado(holder.textViewTarefa, tarefaAtual.isConcluida());
 
-        // Listener para a CheckBox
         holder.checkBoxConcluida.setOnClickListener(v -> {
             boolean isChecked = holder.checkBoxConcluida.isChecked();
             tarefaAtual.setConcluida(isChecked);
             aplicarEfeitoDeRiscado(holder.textViewTarefa, isChecked);
         });
 
-        // Listener para o botão de remover
         holder.botaoRemover.setOnClickListener(v -> {
             int posicaoAtual = holder.getAdapterPosition();
             if (posicaoAtual != RecyclerView.NO_POSITION) {
                 listaDeTarefas.remove(posicaoAtual);
                 notifyItemRemoved(posicaoAtual);
                 notifyItemRangeChanged(posicaoAtual, listaDeTarefas.size());
+                verificarEstadoCallback.run();
             }
         });
     }
 
-    // Método auxiliar para riscar o texto
     private void aplicarEfeitoDeRiscado(TextView textView, boolean concluida) {
         if (concluida) {
             textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            textView.setTextColor(0xFF888888); // Cinza
+            textView.setTextColor(0xFF888888);
         } else {
             textView.setPaintFlags(textView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
-            textView.setTextColor(0xFF000000); // Preto
+            textView.setTextColor(0xFF000000);
         }
     }
 
