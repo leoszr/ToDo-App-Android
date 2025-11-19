@@ -22,21 +22,30 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
         android:hint="Digite uma nova tarefa"
         android:inputType="textCapSentences"
-        app:layout_constraintEnd_toStartOf="@+id/botaoAdicionarTarefa"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewTitulo" />
+
+    <Spinner
+        android:id="@+id/spinnerCategoria"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/botaoAdicionarTarefa"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNovaTarefa" />
 
     <Button
         android:id="@+id/botaoAdicionarTarefa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Adicionar"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextNovaTarefa"
+        app:layout_constraintBottom_toBottomOf="@+id/spinnerCategoria"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editTextNovaTarefa" />
+        app:layout_constraintTop_toTopOf="@+id/spinnerCategoria" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewTarefas"
@@ -46,7 +55,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNovaTarefa" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerCategoria" />
 
     <TextView
         android:id="@+id/textViewEstadoVazio"

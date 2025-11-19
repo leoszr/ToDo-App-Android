@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ToDoApp</string>
+
+    <!-- Adicione estas linhas para as categorias -->
+    <string name="categoria_pessoal">Pessoal</string>
+    <string name="categoria_trabalho">Trabalho</string>
+    <string name="categoria_estudos">Estudos</string>
+    <string name="categoria_compras">Compras</string>
 </resources>

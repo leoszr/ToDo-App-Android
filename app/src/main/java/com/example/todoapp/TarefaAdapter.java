@@ -1,13 +1,17 @@
 package com.example.todoapp;
 
+import android.content.Context;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -26,12 +30,16 @@ public class TarefaAdapter extends RecyclerView.Adapter<TarefaAdapter.TarefaView
         public TextView textViewTarefa;
         public ImageButton botaoRemover;
         public CheckBox checkBoxConcluida;
+        public View viewCorCategoria;
+        public ImageView imageViewIconeCategoria;
 
         public TarefaViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewTarefa = itemView.findViewById(R.id.textViewTarefa);
             botaoRemover = itemView.findViewById(R.id.botaoRemover);
             checkBoxConcluida = itemView.findViewById(R.id.checkBoxConcluida);
+            viewCorCategoria = itemView.findViewById(R.id.viewCorCategoria);
+            imageViewIconeCategoria = itemView.findViewById(R.id.imageViewIconeCategoria);
         }
     }
 
@@ -47,6 +55,15 @@ public class TarefaAdapter extends RecyclerView.Adapter<TarefaAdapter.TarefaView
         Tarefa tarefaAtual = listaDeTarefas.get(position);
         holder.textViewTarefa.setText(tarefaAtual.getTexto());
         holder.checkBoxConcluida.setChecked(tarefaAtual.isConcluida());
+
+        if (tarefaAtual.getCategoria() != null) {
+            Context context = holder.itemView.getContext();
+            int cor = ContextCompat.getColor(context, tarefaAtual.getCategoria().getCorResId());
+            holder.viewCorCategoria.setBackgroundColor(cor);
+
+            int icone = tarefaAtual.getCategoria().getIconeResId();
+            holder.imageViewIconeCategoria.setImageResource(icone);
+        }
 
         aplicarEfeitoDeRiscado(holder.textViewTarefa, tarefaAtual.isConcluida());
 
@@ -70,10 +87,10 @@ public class TarefaAdapter extends RecyclerView.Adapter<TarefaAdapter.TarefaView
     private void aplicarEfeitoDeRiscado(TextView textView, boolean concluida) {
         if (concluida) {
             textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            textView.setTextColor(0xFF888888);
+            textView.setTextColor(ContextCompat.getColor(textView.getContext(), android.R.color.darker_gray));
         } else {
             textView.setPaintFlags(textView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
-            textView.setTextColor(0xFF000000);
+            textView.setTextColor(ContextCompat.getColor(textView.getContext(), android.R.color.black));
         }
     }
 
